@@ -21,9 +21,7 @@ pipeline {
                 sh "docker push ${DOCKER_REPO_URL}/uitest:latest"
             }
         }
-    }
 
-    stages {
         stage('run ui test in container'){
             steps {
                 script {
@@ -53,4 +51,5 @@ pipeline {
             }
         }
     }
+
  }
