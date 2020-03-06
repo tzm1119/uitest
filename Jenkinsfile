@@ -13,6 +13,14 @@ pipeline {
     agent {
         label 'vm-slave' 
     }
+
+    environment {
+      REMOTE_HOST = '52.237.75.205'
+      DOCKER_REPO_URL = 'docker.pkg.github.com/boat-house-group4/boat-house'
+      CREDS_GITHUB_REGISTRY = credentials('creds-github-registry')
+      CREDS_DEV_SERVER = credentials('creds-dev-server')
+      def server=''
+    }
     stages {
         stage('before-build'){
             steps {
