@@ -30,7 +30,7 @@ pipeline {
 
         stage('build test image'){
             steps {
-                sh "docker build -f ./uitest/Dockerfile -t ${DOCKER_REPO_URL}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/uitest:latest ."
+                sh "docker build -f uitest/Dockerfile -t ${DOCKER_REPO_URL}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID} -t ${DOCKER_REPO_URL}/uitest:latest uitest"
                 sh "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                 sh "docker push ${DOCKER_REPO_URL}/uitest:latest"
             }
