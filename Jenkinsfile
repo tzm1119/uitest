@@ -57,7 +57,7 @@ pipeline {
                     echo "hub successfully started!"
                     
                     echo "start run ui test container ...."
-                    sshCommand remote: server, command: "docker run -v ./uitest/report:/app/TestResults ${DOCKER_REPO_URL}/uitest:${env.BRANCH_NAME}-${env.BUILD_ID}"
+                    sshCommand remote: server, command: "docker run -v ./uitest/report:/app/TestResults ${DOCKER_REPO_URL}/uitest:latest"
                     
                     echo "finished uitest start upload report ...."
                     mstest testResultsFile:"./uitest/**/*.trx", keepLongStdio: true
