@@ -57,6 +57,7 @@ pipeline {
                     echo "hub successfully started!"
                     
                     echo "start run ui test container ...."
+                    sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                     sshCommand remote: server, command: "docker run -v ./uitest/report:/app/TestResults uitest"
                     
                     echo "finished uitest start upload report ...."
