@@ -40,20 +40,20 @@ pipeline {
             steps {
                 script {
                     server = getHost()
-                    echo "copy docker-compose-hub file to remote server...." 
+                    echo "copy docker-compose-hub.yml file to remote server...." 
                     sshCommand remote: server, command: "mkdir -p uitest"
                     sshCommand remote: server, command: "mkdir -p uitest/report"        
-                    sshPut remote: server, from: 'docker-compose-hub', into: './uitest'
+                    sshPut remote: server, from: 'docker-compose-hub.yml', into: './uitest'
                     
                     echo "stopping previous docker containers...."       
                     sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
-                    sshCommand remote: server, command: "docker-compose -f docker-compose-hub -p uitest-hub down"
+                    sshCommand remote: server, command: "docker-compose -f docker-compose-hub.yml -p uitest-hub down"
                     
                     echo "pulling newest docker images..."
-                    sshCommand remote: server, command: "docker-compose -f docker-compose-hub -p uitest-hub pull"
+                    sshCommand remote: server, command: "docker-compose -f docker-compose-hub.yml -p uitest-hub pull"
                     
                     echo "restarting new docker containers...."
-                    sshCommand remote: server, command: "docker-compose -f docker-compose-hub -p uitest-hub up -d"
+                    sshCommand remote: server, command: "docker-compose -f docker-compose-hub.yml -p uitest-hub up -d"
                     echo "hub successfully started!"
                     
                     echo "start run ui test container ...."
