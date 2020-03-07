@@ -47,6 +47,7 @@ pipeline {
                     
                     echo "stopping previous docker containers...."       
                     sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
+                    sshCommand remote: server, command: "docker info"
                     sshCommand remote: server, command: "docker-compose -f ./uitest/docker-compose-hub.yml -p uitest-hub down"
                     
                     echo "pulling newest docker images..."
@@ -57,6 +58,7 @@ pipeline {
                     echo "hub successfully started!"
                     
                     echo "start run ui test container ...."
+                    sshCommand remote: server, command: "docker info"
                     sshCommand remote: server, command: "docker login docker.pkg.github.com -u ${CREDS_GITHUB_REGISTRY_USR} -p ${CREDS_GITHUB_REGISTRY_PSW}"
                     sshCommand remote: server, command: "docker run -v ./uitest/report:/app/TestResults uitest"
                     
