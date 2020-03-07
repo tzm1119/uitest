@@ -68,7 +68,7 @@ pipeline {
                     sh "docker-compose -f docker-compose-hub.yml -p uitest-hub down"
                     sh "docker-compose -f docker-compose-hub.yml -p uitest-hub pull"
                     sh "docker-compose -f docker-compose-hub.yml -p uitest-hub up -d"
-                    sh "docker run -v $(pwd)/uitest/report:/app/TestResults ${DOCKER_REPO_URL}/uitest:latest"
+                    sh "docker run -v \$(pwd)/uitest/report:/app/TestResults ${DOCKER_REPO_URL}/uitest:latest"
                     mstest testResultsFile:"./uitest/**/*.trx", keepLongStdio: true
                     }
             }
